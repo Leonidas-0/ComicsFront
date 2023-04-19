@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiAppBar-root {
+  background-color: #00004d !important;
+}
+.carouselimage img {
+  width:500px;
+}
