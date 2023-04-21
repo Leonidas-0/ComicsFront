@@ -7,6 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* * {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+} */
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -16,5 +22,15 @@ code {
   background-color: #00004d !important;
 }
 .carouselimage img {
-  width:500px;
+  width:250px;
+  height:380px;
+}
+
+#carouselsection {
+  height:500px;
+  width:100%;
+  background-image: url('./sololeveling.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: blur(4px);
 }

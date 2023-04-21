@@ -18,6 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { SwipeableDrawer } from '@mui/material';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -68,146 +69,149 @@ export default function PrimarySearchAppBar() {
     //     }
     //  }
     const [data, setData] = useState("");
+    const [search, setSearch] = useState(false);
+    const [openmodal, setOpenmodal] = useState(false);
     function Handlesearch(query) {
-            fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
-                // setData(JSON.stringify(result)) 
-                setData(result)
-                console.log(data)
-            })
-        }
-        //   .then(() => setImage(data.map(item => {
-        //     return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
-        //   }))
-        //   )
-        const [anchorEl, setAnchorEl] = React.useState(null);
-        const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+        fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
+            // setData(JSON.stringify(result)) 
+            setData(result)
+            console.log(data)
+        })
+    }
+    //   .then(() => setImage(data.map(item => {
+    //     return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
+    //   }))
+    //   )
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-        const isMenuOpen = Boolean(anchorEl);
-        const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-        const handleProfileMenuOpen = (event) => {
-            setAnchorEl(event.currentTarget);
-        };
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-        const handleMobileMenuClose = () => {
-            setMobileMoreAnchorEl(null);
-        };
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
 
-        const handleMenuClose = () => {
-            setAnchorEl(null);
-            handleMobileMenuClose();
-        };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
 
-        const handleMobileMenuOpen = (event) => {
-            setMobileMoreAnchorEl(event.currentTarget);
-        };
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
 
-        const menuId = 'primary-search-account-menu';
-        const renderMenu = (
-            <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                id={menuId}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={isMenuOpen}
-                onClose={handleMenuClose}
-            >
-                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            </Menu>
-        );
+    const menuId = 'primary-search-account-menu';
+    const renderMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        </Menu>
+    );
 
-        const mobileMenuId = 'primary-search-account-menu-mobile';
-        const renderMobileMenu = (
-            <Menu
-                anchorEl={mobileMoreAnchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                id={mobileMenuId}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={isMobileMenuOpen}
-                onClose={handleMobileMenuClose}
-            >
-                <MenuItem>
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                        <Badge badgeContent={4} color="error">
-                            <MailIcon />
-                        </Badge>
-                    </IconButton>
-                    <p>Messages</p>
-                </MenuItem>
-                <MenuItem>
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            <MenuItem>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                    <Badge badgeContent={4} color="error">
+                        <MailIcon />
+                    </Badge>
+                </IconButton>
+                <p>Messages</p>
+            </MenuItem>
+            <MenuItem>
+                <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <Badge badgeContent={17} color="error">
+                        <NotificationsIcon />
+                    </Badge>
+                </IconButton>
+                <p>Notifications</p>
+            </MenuItem>
+            <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle />
+                </IconButton>
+                <p>Profile</p>
+            </MenuItem>
+        </Menu>
+    );
+
+    return (
+        <Box sx={{ flexGrow: 1}}>
+            <AppBar position="static">
+                <Toolbar>
                     <IconButton
                         size="large"
-                        aria-label="show 17 new notifications"
+                        edge="start"
                         color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
                     >
-                        <Badge badgeContent={17} color="error">
-                            <NotificationsIcon />
-                        </Badge>
+                        <MenuIcon onClick={() => setOpenmodal(!openmodal)} />
                     </IconButton>
-                    <p>Notifications</p>
-                </MenuItem>
-                <MenuItem onClick={handleProfileMenuOpen}>
-                    <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="primary-search-account-menu"
-                        aria-haspopup="true"
-                        color="inherit"
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
                     >
-                        <AccountCircle />
-                    </IconButton>
-                    <p>Profile</p>
-                </MenuItem>
-            </Menu>
-        );
-
-        return (
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                            MangaW
-                        </Typography>
-                        {/* <Typography variant='h4' component={'h1'}>React Search Bar</Typography> */}
-                        <Autocomplete
-                            defaultValue={""}
-                            onKeyUp={(e) => {Handlesearch(e.target.value)}}
-                            disablePortal
-                            id="combo-box-demo"
-                            options={!data ? [{label:"Loading...", id:0}] : data }
-                            sx={{ width: 300, marginLeft:'20px' }}
-                            renderInput={(params) => <TextField {...params} label="Movie" />}
-                        />
-                        {/* <Box>
+                        MangaW
+                    </Typography>
+                    {/* <Typography variant='h4' component={'h1'}>React Search Bar</Typography> */}
+                    <Autocomplete
+                        defaultValue={""}
+                        open={search}
+                        onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                        disablePortal
+                        id="combo-box-demo"
+                        options={!data ? [{ label: "Loading...", id: 0 }] : data}
+                        sx={{ width: 300, marginLeft: '20px' }}
+                        renderInput={(params) => <TextField {...params} label="Movie" />}
+                    />
+                    {/* <Box>
                         <Stack spacing={2}
                             sx={{
                                 overflow: 'auto',
@@ -226,45 +230,45 @@ export default function PrimarySearchAppBar() {
 
                         </Stack>
                     </Box> */}
-                        {/* <Search> */}
-                        {/* <SearchIconWrapper> */}
-                        <SearchIcon />
-                        {/* </SearchIconWrapper>
+                    {/* <Search> */}
+                    {/* <SearchIconWrapper> */}
+                    <SearchIcon onCLick={() => setSearch(true)} />
+                    {/* </SearchIconWrapper>
                             <StyledInputBase
                                 placeholder="Search…"
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                     </Search> */}
-                        <Box sx={{ flexGrow: 1 }} />
-                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                                <Badge badgeContent={4} color="error">
-                                    <MailIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton
-                                size="large"
-                                aria-label="show 17 new notifications"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                            <IconButton
-                                size="large"
-                                edge="end"
-                                aria-label="account of current user"
-                                aria-controls={menuId}
-                                aria-haspopup="true"
-                                onClick={handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                <AccountCircle />
-                            </IconButton>
-                        </Box>
-                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={4} color="error">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </Box>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        {/* <IconButton
                                 size="large"
                                 aria-label="show more"
                                 aria-controls={mobileMenuId}
@@ -273,12 +277,27 @@ export default function PrimarySearchAppBar() {
                                 color="inherit"
                             >
                                 <MoreIcon />
-                            </IconButton>
-                        </Box>
-                    </Toolbar>
-                </AppBar>
-                {renderMobileMenu}
-                {renderMenu}
-            </Box>
-        );
-    }
+                            </IconButton> */}
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            {renderMobileMenu}
+            {renderMenu}
+            <div>
+                <SwipeableDrawer
+                    PaperProps={{
+                        sx: { width: "50%", backgroundColor:'#00004d' },
+                    }}
+                    anchor={'left'}
+                    open={openmodal}
+                    onClose={() => setOpenmodal(false)}
+                // onOpen={toggleDrawer(anchor, true)}
+                >
+                    <Box sx={{ width: 1 }}>
+                        Hello
+                    </Box>
+                </SwipeableDrawer>
+            </div>
+        </Box>
+    );
+}

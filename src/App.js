@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import './index.css'
+import { Divider } from '@mui/material';
 function App() {
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
@@ -36,8 +37,13 @@ function App() {
   // });
   return (
     <div className="App">
-      <PrimarySearchAppBar />
-      <IconButton
+      <div id="carouselsection">
+      </div>
+      <div style={{ position: 'fixed', top:0, maxWidth:'100%' }}>
+        <div>
+          <PrimarySearchAppBar />
+        </div>
+        {/* <IconButton
         size="large"
         edge="start"
         color="inherit"
@@ -53,11 +59,11 @@ function App() {
         sx={{ display: { xs: 'none', sm: 'block' } }}
       >
         MangaW
-      </Typography>
-      <div style={{ marginLeft: 3 }}>
+      </Typography> */}
+        {/* <div style={{ marginLeft: 3 }}>
         This is a test
-      </div>
-      {/* <header className="App-header">
+      </div> */}
+        {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -70,48 +76,56 @@ function App() {
         >
         </a>
       </header> */}
-      {/* {data.map(i.cover)} */}
-      <Carousel>
-        <Carousel.Item>
-          {/* <img
+        {/* {data.map(i.cover)} */}
+        <Carousel>
+          <Carousel.Item>
+            {/* <img
           className="d-block w-100"
           src="holder.js/800x400?text=First slide&bg=373940"
           alt="First slide"
         /> */}
-          <div class="carouselimage">
-            {image[0]}
-          </div>
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          {/* <img
+            <div class="carouselimage">
+              {image[0]}
+            </div>
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            {/* <img
           className="d-block w-100"
           src="holder.js/800x400?text=Second slide&bg=282c34"
           alt="Second slide"
         /> */}
-          <div class="carouselimage">
-            {image[1]}
-          </div>
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div class="carouselimage">
-            {image[2]}
-          </div>
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+            <div class="carouselimage">
+              {image[1]}
+            </div>
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div class="carouselimage">
+              {image[2]}
+            </div>
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </div>
+      <div>
+        <br></br>
+        <h1>
+          Latest Releases
+        </h1>
+        <Divider light={false} sx={{border: '2px solid black'}} />
+      </div>
     </div>
   );
 }
