@@ -71,6 +71,7 @@ export default function PrimarySearchAppBar() {
     const [data, setData] = useState("");
     const [search, setSearch] = useState(false);
     const [openmodal, setOpenmodal] = useState(false);
+    console.log(data)
     function Handlesearch(query) {
         fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
             // setData(JSON.stringify(result)) 
@@ -205,11 +206,11 @@ export default function PrimarySearchAppBar() {
                         defaultValue={""}
                         open={search}
                         onKeyUp={(e) => { Handlesearch(e.target.value) }}
-                        disablePortal
+                        // disablePortal
                         id="combo-box-demo"
                         options={!data ? [{ label: "Loading...", id: 0 }] : data}
                         sx={{ width: 300, marginLeft: '20px' }}
-                        renderInput={(params) => <TextField {...params} label="Movie" />}
+                        renderInput={(params) => <TextField {...params} />}
                     />
                     {/* <Box>
                         <Stack spacing={2}

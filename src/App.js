@@ -9,37 +9,56 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import './index.css'
 import { Divider } from '@mui/material';
+import Manga from './Manga';
 function App() {
+  const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
+  console.log(mangas.length)
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/').then(response => response.json()).then((result) => {
-      // setData(JSON.stringify(result)) 
-      setData(result)
-      console.log(data)
-    }).then(() => setImage(data.map(item => {
-      return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
-    })))
-  },
+  fetchAPI()},
     [data == ""])
 
-  // axios({
-  //   method: 'post',
-  //   url: 'http://127.0.0.1:8000/',
-  //   headers: {
-  //     "X-CSRFToken": CSRF_TOKEN, 
-  //     "content-type": "application/json"
-  //   }
-  // }).then(function (response) {
-  //   console.log(response)
-  // }).catch(function (error) {
-  //   console.log(error)
-  // });
+  async function fetchAPI() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/')
+      if (response.ok) {
+        let result = await response.json();
+        setData(result);
+        // do something with data
+        setImage(data.map(item => {
+              return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
+        }))
+        for (let i = 0; i < result.length; i++) {
+          setMangas(prevState =>[...prevState,           
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Manga />
+            </div>])
+          // mangas.push(
+          //   <div style={{ display: 'flex', justifyContent: 'center' }}>
+          //     <Manga />
+          //   </div>
+          // )
+        }
+      }
+      else { return console.log('falied') }
+    } catch (error) {
+      // log your error, you can also return it to handle it in your calling function
+    }
+  }
+
+  //     for (let i = 0; i = data.length; i++) {
+  //   mangas.push(
+  //     <div style={{ display: 'flex', justifyContent: 'center' }}>
+  //       <Manga />
+  //     </div>
+  //   )
+  // }
   return (
     <div className="App">
       <div id="carouselsection">
       </div>
-      <div style={{ position: 'fixed', top:0, maxWidth:'100%' }}>
+      <div style={{ position: 'absolute', top: 0, maxWidth: '100%' }}>
         <div>
           <PrimarySearchAppBar />
         </div>
@@ -84,7 +103,7 @@ function App() {
           src="holder.js/800x400?text=First slide&bg=373940"
           alt="First slide"
         /> */}
-            <div class="carouselimage">
+            <div className="carouselimage">
               {image[0]}
             </div>
             <Carousel.Caption>
@@ -98,7 +117,7 @@ function App() {
           src="holder.js/800x400?text=Second slide&bg=282c34"
           alt="Second slide"
         /> */}
-            <div class="carouselimage">
+            <div className="carouselimage">
               {image[1]}
             </div>
             <Carousel.Caption>
@@ -107,7 +126,7 @@ function App() {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <div class="carouselimage">
+            <div className="carouselimage">
               {image[2]}
             </div>
             <Carousel.Caption>
@@ -124,8 +143,10 @@ function App() {
         <h1>
           Latest Releases
         </h1>
-        <Divider light={false} sx={{border: '2px solid black'}} />
+        <Divider light={false} sx={{ border: '2px solid black' }} />
       </div>
+      <br></br>
+      { mangas }
     </div>
   );
 }
