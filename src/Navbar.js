@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { SwipeableDrawer } from '@mui/material';
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -58,8 +59,49 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         },
     },
 }));
+export default function Altnavbar() {
+    const [search, setSearch] = useState(false);
+    console.log(search)
+    function Handlesearch(query) {
+        fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
+            // setData(JSON.stringify(result)) 
+            setData(result)
+            console.log(data)
+        })
+    }
+    const [data, setData] = useState("");
 
-export default function PrimarySearchAppBar() {
+    return (
+        <header id="nav-wrapper" style={{position:'absolute', height:'300px'}}>
+            <nav id="nav">
+                <div className="nav left">
+                    <span className="gradient skew"><h1 className="logo un-skew"><a href="#home">Logo Here</a></h1></span>
+                    <button id="menu" class="btn-nav"><span className="fas fa-bars"></span></button>
+                </div>
+                <div className="nav right">
+                    <a href="#home" className="nav-link active"><span className="nav-link-span"><span className="u-nav">Home</span></span></a>
+                    <a href="#about" className="nav-link"><span className="nav-link-span"><span className="u-nav">About</span></span></a>
+                    <a href="#work" className="nav-link"><span className="nav-link-span"><span className="u-nav">Work</span></span></a>
+                    {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
+                    <a onClick={() => setSearch(!search)}><SearchIcon /></a>
+                </div>
+            </nav>
+            <div style={{position:'absolute', display:search ? 'block':'none', width:'100%', backgroundColor:'white', zIndex:12}}>
+                <Autocomplete
+                    defaultValue={""}
+                    open={search}
+                    onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                    // disablePortal
+                    id="combo-box-demo"
+                    options={!data ? [{ label: "Loading...", id: 0 }] : data}
+                    sx={{ width: 300, marginLeft: '20px' }}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+            </div>
+        </header>
+    )
+}
+export function PrimarySearchAppBar() {
     // const filteredList = list.filter((element) => {
     //     if (searchstring === '') {
     //         return element;
@@ -181,7 +223,7 @@ export default function PrimarySearchAppBar() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -287,7 +329,7 @@ export default function PrimarySearchAppBar() {
             <div>
                 <SwipeableDrawer
                     PaperProps={{
-                        sx: { width: "50%", backgroundColor:'#00004d' },
+                        sx: { width: "50%", backgroundColor: '#00004d' },
                     }}
                     anchor={'left'}
                     open={openmodal}

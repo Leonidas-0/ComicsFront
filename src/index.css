@@ -21,16 +21,44 @@ code {
 .MuiAppBar-root {
   background-color: #00004d !important;
 }
+
 .carouselimage img {
-  width:250px;
+  width:350px;
   height:380px;
 }
-
 #carouselsection {
+  width:50%;
+  margin: 0 auto;
+}
+#mangas {
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+@media only screen and (max-width: 600px) {
+.carouselimage img {
+  width:250px;
+}
+#carouselsection {
+  width:100%;
+}
+}
+
+#carouselbackground {
+  position: absolute;
   height:500px;
   width:100%;
   background-image: url('./sololeveling.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   filter: blur(4px);
+  z-index: 10;
+}
+.MuiAutocomplete-root {
+  position: absolute;
+  width:100% !important;
+  margin:0 !important;
+  background-color: white !important;
 }

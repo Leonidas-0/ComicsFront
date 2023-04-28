@@ -10,13 +10,16 @@ import Typography from '@mui/material/Typography';
 import './index.css'
 import { Divider } from '@mui/material';
 import Manga from './Manga';
+import Altnavbar from './Navbar';
+import './nav.scss'
 function App() {
   const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
   console.log(mangas.length)
   useEffect(() => {
-  fetchAPI()},
+    fetchAPI()
+  },
     [data == ""])
 
   async function fetchAPI() {
@@ -27,13 +30,13 @@ function App() {
         setData(result);
         // do something with data
         setImage(data.map(item => {
-              return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
+          return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
         }))
         for (let i = 0; i < result.length; i++) {
-          setMangas(prevState =>[...prevState,           
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Manga />
-            </div>])
+          setMangas(prevState => [...prevState,
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Manga />
+          </div>])
           // mangas.push(
           //   <div style={{ display: 'flex', justifyContent: 'center' }}>
           //     <Manga />
@@ -56,13 +59,14 @@ function App() {
   // }
   return (
     <div className="App">
-      <div id="carouselsection">
+      <div id="carouselbackground">
       </div>
-      <div style={{ position: 'absolute', top: 0, maxWidth: '100%' }}>
-        <div>
-          <PrimarySearchAppBar />
-        </div>
-        {/* <IconButton
+      <div>
+      <div>
+        <Altnavbar />
+      </div>
+        <div id="carouselsection" style={{ position: 'relative', top:'80px', maxWidth: '100%', zIndex:11 }}>
+          {/* <IconButton
         size="large"
         edge="start"
         color="inherit"
@@ -79,10 +83,10 @@ function App() {
       >
         MangaW
       </Typography> */}
-        {/* <div style={{ marginLeft: 3 }}>
+          {/* <div style={{ marginLeft: 3 }}>
         This is a test
       </div> */}
-        {/* <header className="App-header">
+          {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -95,58 +99,60 @@ function App() {
         >
         </a>
       </header> */}
-        {/* {data.map(i.cover)} */}
-        <Carousel>
-          <Carousel.Item>
-            {/* <img
+          {/* {data.map(i.cover)} */}
+          <Carousel style={{position:'relative', marginTop:'20px',marginBottom:'100px'}}>
+            <Carousel.Item>
+              {/* <img
           className="d-block w-100"
           src="holder.js/800x400?text=First slide&bg=373940"
           alt="First slide"
         /> */}
-            <div className="carouselimage">
-              {image[0]}
-            </div>
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            {/* <img
+              <div className="carouselimage">
+                {image[0]}
+              </div>
+              <Carousel.Caption>
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              {/* <img
           className="d-block w-100"
           src="holder.js/800x400?text=Second slide&bg=282c34"
           alt="Second slide"
         /> */}
-            <div className="carouselimage">
-              {image[1]}
-            </div>
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="carouselimage">
-              {image[2]}
-            </div>
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+              <div className="carouselimage">
+                {image[1]}
+              </div>
+              <Carousel.Caption>
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div className="carouselimage">
+                {image[2]}
+              </div>
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </div>
       </div>
       <div>
         <br></br>
-        <h1>
-          Latest Releases
-        </h1>
-        <Divider light={false} sx={{ border: '2px solid black' }} />
+        <br></br>
+        {/* <Divider light={false} sx={{ border: '2px solid black' }} /> */}
+        <h2 class="divider donotcross" contenteditable>Latest Releases</h2>
       </div>
       <br></br>
-      { mangas }
+      <div id="mangas">
+      {mangas}
+      </div>
     </div>
   );
 }
