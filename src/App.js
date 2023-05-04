@@ -66,7 +66,7 @@ function App() {
       </div>
       <div id="carouselbackground">
       </div>
-        <div id="carouselsection" style={{ position: 'relative', maxWidth: '100%', zIndex:12 }}>
+        <div id="carouselsection" style={{ position: 'relative', maxWidth: '100%', zIndex:10 }}>
           {/* <IconButton
         size="large"
         edge="start"
