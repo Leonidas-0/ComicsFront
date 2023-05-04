@@ -1,3 +1,12 @@
+
+@font-face {
+  font-family: "League Gothic Italic";
+  src: local("LeagueGothic-Italic"),
+    url("./fonts/LeagueGothic-Italic.otf") format("truetype");
+  font-weight: bold;
+  size-adjust: 170%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,8 +14,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "League Gothic Italic" !important
 }
-
 /* * {
   background: #000 !important;
   color: #0f0 !important;
@@ -23,8 +32,8 @@ code {
 }
 
 .carouselimage img {
-  width:350px;
-  height:380px;
+  width:450px;
+  height:470px;
 }
 #carouselsection {
   width:50%;
@@ -44,6 +53,16 @@ code {
 #carouselsection {
   width:100%;
 }
+#mangas {
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+#mangas > div {
+  margin-bottom: 30px;
+}
 }
 
 #carouselbackground {
@@ -53,7 +72,7 @@ code {
   background-image: url('./sololeveling.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  filter: blur(4px);
+  filter: blur(3px);
   z-index: 10;
 }
 .MuiAutocomplete-root {
@@ -61,4 +80,9 @@ code {
   width:100% !important;
   margin:0 !important;
   background-color: white !important;
+}
+
+#logo {
+  width: 200px;
+  height: 80px;
 }

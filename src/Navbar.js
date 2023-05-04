@@ -72,10 +72,10 @@ export default function Altnavbar() {
     const [data, setData] = useState("");
 
     return (
-        <header id="nav-wrapper" style={{position:'absolute', height:'300px'}}>
+        <header id="nav-wrapper">
             <nav id="nav">
                 <div className="nav left">
-                    <span className="gradient skew"><h1 className="logo un-skew"><a href="#home">Logo Here</a></h1></span>
+                    <span className="gradient skew"><h1 className="logo un-skew"><a href="#home"><img id="logo" src={"/logo.png"}></img></a></h1></span>
                     <button id="menu" class="btn-nav"><span className="fas fa-bars"></span></button>
                 </div>
                 <div className="nav right">
@@ -85,19 +85,20 @@ export default function Altnavbar() {
                     {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
                     <a onClick={() => setSearch(!search)}><SearchIcon /></a>
                 </div>
+                <div style={{ position: 'absolute', top:'8em', display: search ? 'block' : 'none', width: '100%', height: '50px', backgroundColor: 'white', zIndex:11 }}>
+                    <Autocomplete
+                        zIndex={11}
+                        defaultValue={""}
+                        open={search}
+                        onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                        // disablePortal
+                        id="combo-box-demo"
+                        options={!data ? [{ label: "Loading...", id: 0 }] : data}
+                        sx={{ width: 300, marginLeft: '20px' }}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </div>
             </nav>
-            <div style={{position:'absolute', display:search ? 'block':'none', width:'100%', backgroundColor:'white', zIndex:12}}>
-                <Autocomplete
-                    defaultValue={""}
-                    open={search}
-                    onKeyUp={(e) => { Handlesearch(e.target.value) }}
-                    // disablePortal
-                    id="combo-box-demo"
-                    options={!data ? [{ label: "Loading...", id: 0 }] : data}
-                    sx={{ width: 300, marginLeft: '20px' }}
-                    renderInput={(params) => <TextField {...params} />}
-                />
-            </div>
         </header>
     )
 }

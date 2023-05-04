@@ -7,7 +7,6 @@ $a-tags: "a, a:active, a:hover, a:visited";
 $a-tags-no-hov: "a:link, a:visited, a:active";
 $headings-font: "Saira Semi Condensed", sans-serif;
 $shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-
 @mixin main-gradient {
   background: $color-primary;
   background: -webkit-linear-gradient(45deg, $color-primary, $color-secondary);
@@ -77,7 +76,7 @@ section {
 
 /*-------------Nav-------------*/
 #nav-wrapper {
-  overflow: hidden;
+  // overflow: hidden;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -89,10 +88,12 @@ section {
 #nav {
   @include shadow-box;
   display: flex;
+  position: relative;
   flex-direction: column;
-  font-family: $headings-font;
+  // font-family: $headings-font;
   height: 5em;
-  overflow: hidden;
+  // overflow: hidden;
+  height: 120%;
 
   &.nav-visible {
     height: 100%;
@@ -106,7 +107,10 @@ section {
   line-height: 4em;
   flex-grow: 1;
 }
-
+.nav.right {
+  display:flex;
+  flex-direction: row;
+}
 .nav-link,
 .logo {
   padding: 0 1em;
@@ -188,6 +192,11 @@ a:hover {
     left: 1.5em;
     height: auto;
   }
+  // .left {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
 
   .btn-nav {
     display: none;
@@ -234,7 +243,7 @@ a:hover {
 .donotcross {
   overflow: hidden;
   align-items: center;
-  background: #f857a8;
+  background: linear-gradient(45deg, #f857a8, #ff5858);
   color: black;
   height: 2em;
   line-height: 2em;
@@ -248,6 +257,34 @@ a:hover {
     transform: rotate(45deg);
   }
 }
+.gradient.skew {
+  position: relative;
+  height: 150px;
+  bottom:30px;
+  left: 30px;
+}
+@media only screen and (max-width: 600px) {
+  .donotcross {
+    &:before,
+    &:after {
+      background: white;
+      padding: 15px 0;
+      height: 0;
+      transform: rotate(45deg);
+    }
+  }
+  .nav.right > a {
+    flex-grow: 1;
+  }
+  .gradient.skew {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 50px !important;
+    bottom:0;
+    left: 20px;
+  }
+  }
 
 .gradient {
   align-items: stretch;
@@ -275,10 +312,7 @@ a:hover {
     flex: 1;
   }
 }
+// .logo.un-skew {
+//   height: 0px;
+// }
 
-.gradient.skew {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  height: 50px;
-}

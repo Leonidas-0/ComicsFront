@@ -26,7 +26,8 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Manga() {
+export default function Manga({image, title}) {
+  console.log(image)
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -38,7 +39,7 @@ export default function Manga() {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            
           </Avatar>
         }
         action={
@@ -46,15 +47,15 @@ export default function Manga() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={title}
         subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
-        height="194"
+        height="250"
         // image="./sololeveling.jpg"
-        src={solo}
-        alt="Paella dish"
+        src={`http://127.0.0.1:8000/media/${image}`}
+        alt="Manga"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

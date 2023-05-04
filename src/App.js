@@ -16,7 +16,6 @@ function App() {
   const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
-  console.log(mangas.length)
   useEffect(() => {
     fetchAPI()
   },
@@ -32,17 +31,19 @@ function App() {
         setImage(data.map(item => {
           return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
         }))
-        for (let i = 0; i < result.length; i++) {
-          setMangas(prevState => [...prevState,
+        data.slice(0,3).map(item =>
+          setMangas(
+          prevState => [...prevState,
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Manga />
-          </div>])
+            <Manga image={item.cover}  title={item.label}/>
+          </div>]
+          )
+        )
           // mangas.push(
           //   <div style={{ display: 'flex', justifyContent: 'center' }}>
           //     <Manga />
           //   </div>
           // )
-        }
       }
       else { return console.log('falied') }
     } catch (error) {
@@ -59,13 +60,13 @@ function App() {
   // }
   return (
     <div className="App">
-      <div id="carouselbackground">
-      </div>
       <div>
-      <div>
+      <div style={{position:'relative',zIndex:11}}>
         <Altnavbar />
       </div>
-        <div id="carouselsection" style={{ position: 'relative', top:'80px', maxWidth: '100%', zIndex:11 }}>
+      <div id="carouselbackground">
+      </div>
+        <div id="carouselsection" style={{ position: 'relative', maxWidth: '100%', zIndex:12 }}>
           {/* <IconButton
         size="large"
         edge="start"
@@ -100,7 +101,7 @@ function App() {
         </a>
       </header> */}
           {/* {data.map(i.cover)} */}
-          <Carousel style={{position:'relative', marginTop:'20px',marginBottom:'100px'}}>
+          <Carousel style={{position:'relative', marginTop:'10px',marginBottom:'100px'}}>
             <Carousel.Item>
               {/* <img
           className="d-block w-100"
@@ -112,7 +113,7 @@ function App() {
               </div>
               <Carousel.Caption>
                 <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <p>Nulla vitae elit libero, a pharetra augue mollis.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -126,7 +127,7 @@ function App() {
               </div>
               <Carousel.Caption>
                 <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -136,7 +137,7 @@ function App() {
               <Carousel.Caption>
                 <h3>Third slide label</h3>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                  Praesent commodo cursus magna, vel.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
