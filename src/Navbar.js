@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { SwipeableDrawer } from '@mui/material';
+import { NavLink } from "react-router-dom";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -79,13 +80,25 @@ export default function Altnavbar() {
                     <button id="menu" class="btn-nav"><span className="fas fa-bars"></span></button>
                 </div>
                 <div className="nav right">
-                    <a href="#home" className="nav-link active"><span className="nav-link-span"><span className="u-nav">Home</span></span></a>
-                    <a href="#about" className="nav-link"><span className="nav-link-span"><span className="u-nav">About</span></span></a>
-                    <a href="#work" className="nav-link"><span className="nav-link-span"><span className="u-nav">Work</span></span></a>
+                    <NavLink
+                        className={"nav-link"}
+                        to="/"
+                        activeClassName="nav-link active"
+                    ><span className="nav-link-span"><span className="u-nav">Home</span></span></NavLink>
+                    <NavLink
+                        className={"nav-link"}
+                        to="/Openmanga"
+                        activeClassName="nav-link active"
+                    ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
+                    <NavLink
+                        className={"nav-link"}
+                        to="/work"
+                        activeClassName="nav-link active"
+                    ><span className="nav-link-span"><span className="u-nav">Work</span></span></NavLink>
                     {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
                     <a onClick={() => setSearch(!search)}><SearchIcon /></a>
                 </div>
-                <div style={{ position: 'absolute', top:'8em', display: search ? 'block' : 'none', width: '100%', height: '50px', backgroundColor: 'white', zIndex:11 }}>
+                <div style={{ position: 'absolute', top: '8em', display: search ? 'block' : 'none', width: '100%', height: '50px', backgroundColor: 'white', zIndex: 11 }}>
                     <Autocomplete
                         zIndex={11}
                         defaultValue={""}
