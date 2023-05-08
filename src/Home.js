@@ -63,7 +63,7 @@ function App() {
   //   )
   // }
   return (
-    <div className="App">
+    <div className="Home">
       <div>
       {/* <div style={{position:'relative',zIndex:11}}>
         <Altnavbar />

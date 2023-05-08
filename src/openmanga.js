@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function Openmanga () {
     let { mangaid } = useParams();
-    const [mangas, setMangas] = useState([null])
+    const [chapters, setChapters] = useState([null]);  
     const [data, setData] = useState("");  
   async function fetchAPI() {
     try {
@@ -12,7 +12,16 @@ export default function Openmanga () {
       if (response.ok) {
         let result = await response.json();
         setData(result);
-        console.log(data)
+        console.log(data.chapters.length)
+        for (let i = 0; i < data.chapters.length; i++) {
+        setChapters(
+            prevState => [...prevState,
+            <div>
+                chapter: {data.chapters[i]}
+            </div>]
+            )
+        console.log(chapters)
+      }
         // do something with data
         // setImage(data.map(item => {
         //   return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
@@ -34,9 +43,11 @@ export default function Openmanga () {
     [data == ""])
 
     return (
-        <div>
-            {mangaid}
+        <div id="chapterview">
+            <br></br>
             <img src={`http://127.0.0.1:8000/media/${data.cover}`}></img>
+            <br></br>
+            {chapters}
         </div>
     )
 }
