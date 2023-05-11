@@ -172,11 +172,11 @@ a:hover {
 
 @media (min-width: 800px) {
   #nav-wrapper {
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   #nav {
-    overflow: hidden;
+    // overflow: hidden;
     flex-direction: row;
   }
 
@@ -259,7 +259,7 @@ a:hover {
 }
 .gradient.skew {
   position: relative;
-  height: 150px;
+  height: 4.85em;
   bottom:30px;
   left: 30px;
 }

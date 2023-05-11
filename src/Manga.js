@@ -27,8 +27,26 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Manga({ image, title, id }) {
-  console.log(image)
+export default function Manga({ image, title, id, average, 
+  allratings
+}) {
+  let rating=[]
+  if (allratings.length !== 0) {
+    average = Math.round(allratings.reduce((a, b) => a + b, 0) / allratings.length)
+}
+else {
+    average = 0
+}
+for (let j = 0; j < 5; j++) {
+    if (j >= average) {
+      rating.push(<div>☆</div>)
+
+    }
+    else {
+      rating.push(<div>★</div>)
+    }
+  }
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -50,7 +68,8 @@ export default function Manga({ image, title, id }) {
             </IconButton>
           }
           title={title}
-          subheader="September 14, 2016"
+          // subheader="September 14, 2016"
+          subheader={`02/05/2023`}
         />
         <CardMedia
           component="img"
@@ -59,6 +78,9 @@ export default function Manga({ image, title, id }) {
           src={`http://127.0.0.1:8000/media/${image}`}
           alt="Manga"
         />
+          <div style={{display:'flex', flexDirection:'row', justifyContent:'center', fontSize:'25px', }}>
+            {rating}
+          </div>
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             This impressive paella is a perfect party dish and a fun meal to cook

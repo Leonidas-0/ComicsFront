@@ -17,6 +17,7 @@ export default function App() {
         <Routes>
         <Route index element={<Home />} />
         <Route path="/Openmanga/:mangaid" element={ <Openmanga /> } />
+        <Route path="/categories" element={ <Openmanga /> } />
     </Routes>
     </div>
   )

@@ -76,10 +76,15 @@ export default function Altnavbar() {
         <header id="nav-wrapper">
             <nav id="nav">
                 <div className="nav left">
-                    <span className="gradient skew"><h1 className="logo un-skew"><a href="#home"><img id="logo" src={"/logo.png"}></img></a></h1></span>
-                    <button id="menu" class="btn-nav"><span className="fas fa-bars"></span></button>
+            <span className="gradient skew"><h1 className="logo un-skew"><a href="#home"><img id="logo" src={"/logo.png"}></img></a></h1></span>
+                    <button id="menu" class="btn-nav">
+                        <span className="fas fa-bars">
+                            </span></button>
                 </div>
                 <div className="nav right">
+                <div style={{marginRight:'20px', marginLeft:'10px'}}>
+                <a onClick={() => setSearch(!search)}><SearchIcon /></a>
+                </div>
                     <NavLink
                         className={"nav-link"}
                         to="/"
@@ -92,14 +97,14 @@ export default function Altnavbar() {
                     ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
                     <NavLink
                         className={"nav-link"}
-                        to="/work"
+                        to="/Categories"
                         activeClassName="nav-link active"
-                    ><span className="nav-link-span"><span className="u-nav">Work</span></span></NavLink>
+                    ><span className="nav-link-span"><span className="u-nav">Categories</span></span></NavLink>
                     {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
-                    <a onClick={() => setSearch(!search)}><SearchIcon /></a>
                 </div>
-                <div style={{ position: 'absolute', top: '8em', display: search ? 'block' : 'none', width: '100%', height: '50px', backgroundColor: 'white', zIndex: 11 }}>
+                <div id="autocomplete" style={{display: search ? 'block' : 'none',}}>
                     <Autocomplete
+                        // style={{  height: '0 !important', animation: 'open !important', animationDuration: '0.1s !important', animationFillMode:'forwards', animationPlayState:search ? 'running !important':'paused !important'}}
                         zIndex={11}
                         defaultValue={""}
                         open={search}

@@ -20,6 +20,8 @@ function App() {
   const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
+  // const [allratings, setAllratings] = useState([]);
+  // const [average, setAverage] = useState([]);
   useEffect(() => {
     fetchAPI()
   },
@@ -31,81 +33,31 @@ function App() {
       if (response.ok) {
         let result = await response.json();
         setData(result);
-        // do something with data
         setImage(data.map(item => {
           return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
         }))
-        data.slice(0,3).map(item =>
+        data.slice(0,3).map(item => {
+          let allratings=(item.ratings)
           setMangas(
           prevState => [...prevState,
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Manga image={item.cover}  title={item.label} id={item.id}/>
+          <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
+            <Manga allratings={allratings} image={item.cover}  title={item.label} id={item.id}/>
           </div>]
           )
+        }
         )
-          // mangas.push(
-          //   <div style={{ display: 'flex', justifyContent: 'center' }}>
-          //     <Manga />
-          //   </div>
-          // )
       }
       else { return console.log('falied') }
     } catch (error) {
-      // log your error, you can also return it to handle it in your calling function
     }
   }
 
-  //     for (let i = 0; i = data.length; i++) {
-  //   mangas.push(
-  //     <div style={{ display: 'flex', justifyContent: 'center' }}>
-  //       <Manga />
-  //     </div>
-  //   )
-  // }
   return (
     <div className="Home">
       <div>
-      {/* <div style={{position:'relative',zIndex:11}}>
-        <Altnavbar />
-      </div> */}
-      {/* <Layout /> */}
       <div id="carouselbackground">
       </div>
         <div id="carouselsection" style={{ position: 'relative', maxWidth: '100%', zIndex:10 }}>
-          {/* <IconButton
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="open drawer"
-        sx={{ mr: 2 }}
-      >
-        <MenuIcon />
-      </IconButton>
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
-        sx={{ display: { xs: 'none', sm: 'block' } }}
-      >
-        MangaW
-      </Typography> */}
-          {/* <div style={{ marginLeft: 3 }}>
-        This is a test
-      </div> */}
-          {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
-      </header> */}
-          {/* {data.map(i.cover)} */}
           <Carousel style={{position:'relative', marginTop:'10px',marginBottom:'100px'}}>
             <Carousel.Item>
               {/* <img
