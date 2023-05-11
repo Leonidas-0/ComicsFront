@@ -32,7 +32,7 @@ export default function Openmanga() {
                     prevState => [...prevState,
                 <div onClick={() => Rate(j+1)}>★</div>]
                 )
-            }
+            }                   
         }
     }
     async function fetchAPI() {
@@ -44,12 +44,11 @@ export default function Openmanga() {
                 for (let i = 0; i < data.chapters.length; i++) {
                     setChapters(
                         prevState => [...prevState,
-                        <div>
+                        <Link to={`/${mangaid}/${data.chapters[i]}`}>
                             chapter: {data.chapters[i]}
-                        </div>]
+                        </Link>]
                     )
-                }
-                setAllratings(result.ratings)
+                }    
             }
             else { return console.log('falied') }
         } catch (error) {

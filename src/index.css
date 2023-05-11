@@ -124,7 +124,10 @@ code {
   width: 200px;
   height: 80px;
 }
-
+#chapterview img {
+  width:25%;
+  height:500px;
+}
 @media (max-width: 768px) {
   #chapterview {
     display: flex;
@@ -142,10 +145,13 @@ code {
 
 
 
-footer-clean {
-  padding:50px 0;
-  background-color:#fff;
-  color:#4b4c4d;
+.footer-clean {
+  width: 100%;
+  position: relative;
+  bottom:0;
+  /* padding:50px 0; */
+  /* background-color:#fff; */
+  /* color:#4b4c4d; */
 }
 
 /* .footer-clean h3 {
