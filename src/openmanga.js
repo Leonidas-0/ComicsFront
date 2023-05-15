@@ -82,9 +82,11 @@ export default function Openmanga() {
                 {rating}
             </div>
             <br></br>
-            <a>
+            <a style={{ display: 'flex', flexDirection: 'column', gap:'10px' }}>
             {chapters}
             </a>
+            <br></br>
+            <br></br>
         </div>
     )
 }

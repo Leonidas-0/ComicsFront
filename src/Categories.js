@@ -32,7 +32,7 @@ export default function Categories() {
     },
         [data == ""])
     return (
-        <div style={{ height: '700px', width: '100%' }}>
+        <div style={{ height: '700px', width: '100%', display:'flex', flexDirection:'column', gap:'5px', alignItems:'center', justifyContent:'center' }}>
             {genres}
         </div>
     )

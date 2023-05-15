@@ -234,4 +234,14 @@ code {
   opacity:0.6;
 }
 
+#page img {
+  width:50%;
+}
+
+@media (max-width:767px) {
+  #page img {
+    width:75%;
+  }
+}
+
 
