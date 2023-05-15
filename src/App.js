@@ -23,7 +23,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/Openmanga/:mangaid" element={<Openmanga />} />
         <Route path="/Genres" element={<Categories />} />
-        <Route path="/:mangaid/:chapter" element={<Chapter />} />
+        <Route path="/:mangaid/:chapterid" element={<Chapter />} />
       </Routes>
       <div class="footer-clean">
         <footer>
