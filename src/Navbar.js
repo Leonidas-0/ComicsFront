@@ -20,6 +20,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { SwipeableDrawer } from '@mui/material';
 import { NavLink } from "react-router-dom";
+import { ClickAwayListener } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -63,16 +64,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Altnavbar() {
     const [data, setData] = useState("");
     const [search, setSearch] = useState(false);
+    const [searchresult, setSearchresult] = useState("");
+    if (searchresult != "" && searchresult != null) {
+        window.location.href = `/Openmanga/${searchresult.id}`
+    }
     function Handlesearch(query) {
-        if (query=="") {
+        if (query == "") {
             setData("")
         }
         else {
-        fetch(`https://mangaworld.herokuapp.com/searchresponse/${query}`).then(response => response.json()).then((result) => {
-            // setData(JSON.stringify(result)) 
-            setData(result)
-        })
-    }
+            fetch(`https://mangaworld.herokuapp.com/searchresponse/${query}`).then(response => response.json()).then((result) => {
+                // setData(JSON.stringify(result)) 
+                setData(result)
+            })
+        }
     }
 
     return (
@@ -84,41 +89,49 @@ export default function Altnavbar() {
                         <span className="fas fa-bars">
                         </span></button>
                 </div>
-                <div className="nav right">
-                    <div style={{ marginRight: '20px', marginLeft: '10px' }}>
-                        <a onClick={() => setSearch(!search)}><SearchIcon /></a>
+                <ClickAwayListener onClickAway={() => setSearch(false)}>
+                    <div>
+                        <div className="nav right">
+                            <div style={{ marginRight: '20px', marginLeft: '10px' }}>
+                                <a onClick={() => setSearch(!search)}><SearchIcon /></a>
+                            </div>
+                            <NavLink
+                            onClick={() => setSearch(false)}
+                                className={"nav-link"}
+                                to="/"
+                                activeClassName="nav-link active"
+                            ><span className="nav-link-span"><span className="u-nav">Home</span></span></NavLink>
+                            <NavLink
+                            onClick={() => setSearch(false)}
+                                className={"nav-link"}
+                                to="/Genres"
+                                activeClassName="nav-link active"
+                            ><span className="nav-link-span"><span className="u-nav">Genres</span></span></NavLink>
+                            <NavLink
+                            onClick={() => setSearch(false)}
+                                className={"nav-link"}
+                                to="/Openmanga"
+                                activeClassName="nav-link active"
+                            ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
+                            {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
+                        </div>
+                        <div id="autocomplete" style={{ display: search ? 'block' : 'none', }}>
+                            <Autocomplete 
+                            onChange={(event, result) => {setSearchresult(result);
+      }}                                // style={{  height: '0 !important', animation: 'open !important', animationDuration: '0.1s !important', animationFillMode:'forwards', animationPlayState:search ? 'running !important':'paused !important'}}
+                                zIndex={11}
+                                defaultValue={""}
+                                open={search}
+                                onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                                // disablePortal
+                                id="combo-box-demo"
+                                options={!data ? [{ label: "", id: 0 }] : data}
+                                sx={{ width: 300, marginLeft: '20px' }}
+                                renderInput={(params) => <TextField {...params} onClick={(e) => { console.log((e.target.value)) }} />}
+                            />
+                        </div>
                     </div>
-                    <NavLink
-                        className={"nav-link"}
-                        to="/"
-                        activeClassName="nav-link active"
-                    ><span className="nav-link-span"><span className="u-nav">Home</span></span></NavLink>
-                    <NavLink
-                        className={"nav-link"}
-                        to="/Genres"
-                        activeClassName="nav-link active"
-                    ><span className="nav-link-span"><span className="u-nav">Genres</span></span></NavLink>
-                    <NavLink
-                        className={"nav-link"}
-                        to="/Openmanga"
-                        activeClassName="nav-link active"
-                    ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
-                    {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
-                </div>
-                <div id="autocomplete" style={{ display: search ? 'block' : 'none', }}>
-                    <Autocomplete
-                        // style={{  height: '0 !important', animation: 'open !important', animationDuration: '0.1s !important', animationFillMode:'forwards', animationPlayState:search ? 'running !important':'paused !important'}}
-                        zIndex={11}
-                        defaultValue={""}
-                        open={search}
-                        onKeyUp={(e) => { Handlesearch(e.target.value) }}
-                        // disablePortal
-                        id="combo-box-demo"
-                        options={!data ? [{ label: "", id: 0 }] : data}
-                        sx={{ width: 300, marginLeft: '20px' }}
-                        renderInput={(params) => <TextField {...params} onClick={(e) => { console.log((e.target.value)) }}/>}
-                    />
-                </div>
+                </ClickAwayListener>
             </nav>
         </header>
     )

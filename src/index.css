@@ -243,5 +243,7 @@ code {
     width:75%;
   }
 }
-
+#shadow-host-companion {
+  display: none;
+}
 
