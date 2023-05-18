@@ -9,7 +9,7 @@ export default function Categories() {
 
     async function fetchAPI() {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/genres`)
+            const response = await fetch(`https://mangaworld.herokuapp.com/genres`)
             if (response.ok) {
                 let result = await response.json();
                 setData(result);
@@ -17,7 +17,9 @@ export default function Categories() {
                     setGenres(
                     prevState => [...prevState,
                     <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
+                     <Link to={`/${item}`}>
                       {item}
+                      </Link>
                     </div>]
                     )
                   }
@@ -32,7 +34,8 @@ export default function Categories() {
     },
         [data == ""])
     return (
-        <div style={{ height: '700px', width: '100%', display:'flex', flexDirection:'column', gap:'5px', alignItems:'center', justifyContent:'center' }}>
+        <div style={{ height: '700px', width: '100%', display:'flex', flexDirection:'column', gap:'5px' }}>
+            <br></br>
             {genres}
         </div>
     )

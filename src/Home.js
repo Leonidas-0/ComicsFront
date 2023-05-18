@@ -25,19 +25,19 @@ function App() {
 
   async function fetchAPI() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/')
+      const response = await fetch('https://mangaworld.herokuapp.com/')
       if (response.ok) {
         let result = await response.json();
         setData(result);
         setImage(data.map(item => {
-          return <img src={`http://127.0.0.1:8000/media/${item.cover}`}></img>;
+          return <img src={`https://mangaworld.herokuapp.com/media/${item.cover}`}></img>;
         }))
         data.slice(0,3).map(item => {
           let allratings=(item.ratings)
           setMangas(
           prevState => [...prevState,
           <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
-            <Manga allratings={allratings} image={item.cover}  title={item.label} id={item.id}/>
+            <Manga allratings={allratings}  date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
           </div>]
           )
         }

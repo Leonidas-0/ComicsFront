@@ -10,6 +10,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Chapter from "./Chapter";
+import Genremanga from "./Genremanga";
 export default function App() {
   // const { pathname } = useLocation();
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/Openmanga/:mangaid" element={<Openmanga />} />
         <Route path="/Genres" element={<Categories />} />
         <Route path="/:mangaid/:chapterid" element={<Chapter />} />
+        <Route path="/:genreid" element={<Genremanga />} />
       </Routes>
       <div class="footer-clean">
         <footer>

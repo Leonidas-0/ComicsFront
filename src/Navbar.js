@@ -61,16 +61,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 export default function Altnavbar() {
+    const [data, setData] = useState("");
     const [search, setSearch] = useState(false);
-    console.log(search)
     function Handlesearch(query) {
+        if (query=="") {
+            setData("")
+        }
+        else {
         fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
             // setData(JSON.stringify(result)) 
             setData(result)
-            console.log(data)
         })
     }
-    const [data, setData] = useState("");
+    }
 
     return (
         <header id="nav-wrapper">
@@ -111,9 +114,9 @@ export default function Altnavbar() {
                         onKeyUp={(e) => { Handlesearch(e.target.value) }}
                         // disablePortal
                         id="combo-box-demo"
-                        options={!data ? [{ label: "Loading...", id: 0 }] : data}
+                        options={!data ? [{ label: "", id: 0 }] : data}
                         sx={{ width: 300, marginLeft: '20px' }}
-                        renderInput={(params) => <TextField {...params} />}
+                        renderInput={(params) => <TextField {...params} onClick={(e) => { console.log((e.target.value)) }}/>}
                     />
                 </div>
             </nav>
@@ -132,12 +135,10 @@ export function PrimarySearchAppBar() {
     const [data, setData] = useState("");
     const [search, setSearch] = useState(false);
     const [openmodal, setOpenmodal] = useState(false);
-    console.log(data)
     function Handlesearch(query) {
         fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
             // setData(JSON.stringify(result)) 
             setData(result)
-            console.log(data)
         })
     }
     //   .then(() => setImage(data.map(item => {

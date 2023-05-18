@@ -8,13 +8,14 @@ export default function Openmanga() {
     const [chapters, setChapters] = useState([null]);
     const [data, setData] = useState("");
     const [rating, setRating] = useState([]);
-    const [allratings, setAllratings] = useState([]);
-    
-    function Rating() {
+    // const [allratings, setAllratings] = useState([]);
+    // console.log(allratings)
+
+    function Rating(allratings) {
+        // console.log(allratings)
         setRating("")
         let average=""
         if (allratings.length !== 0) {
-            console.log(allratings)
             average = Math.round(allratings.reduce((a, b) => a + b, 0) / allratings.length)
         }
         else {
@@ -41,6 +42,7 @@ export default function Openmanga() {
             if (response.ok) {
                 let result = await response.json();
                 setData(result);
+                Rating(data.ratings)
                 for (let i = 0; i < data.chapters.length; i++) {
                     setChapters(
                         prevState => [...prevState,
@@ -54,20 +56,20 @@ export default function Openmanga() {
         } catch (error) {
         }
     }
+    // useEffect(() => {
+    //     Rating()
+    //     }, [allratings])
     useEffect(() => {
         fetchAPI()
     },
         [data == ""])
-    useEffect(() => {
-        Rating()
-        }, [allratings])
     async function Rate(num) {
         setRating("")
         try {
             const response = await fetch(`http://127.0.0.1:8000/rate/${mangaid}/${num}`)
             if (response.ok) {
                 let result = await response.json();
-                setAllratings(result[0])
+                Rating(result[0])
             }
             else { return console.log('falied') }
         } catch (error) {
@@ -79,7 +81,7 @@ export default function Openmanga() {
             <br></br>
             <img src={`http://127.0.0.1:8000/media/${data.cover}`}></img>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '40px', }}>
-                {rating}
+                {rating} 
             </div>
             <br></br>
             <a style={{ display: 'flex', flexDirection: 'column', gap:'10px' }}>

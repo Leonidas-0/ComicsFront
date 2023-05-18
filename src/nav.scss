@@ -117,6 +117,10 @@ section {
   padding: 0 1em;
 }
 
+.nav-link.active {
+  text-decoration: none;
+}
+
 span.gradient {
   @include main-gradient;
   padding: 0 1em;

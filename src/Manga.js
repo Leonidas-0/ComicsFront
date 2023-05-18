@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Manga({ image, title, id, average, 
-  allratings
+  allratings, date
 }) {
   let rating=[]
   if (allratings.length !== 0) {
@@ -52,9 +52,10 @@ for (let j = 0; j < 5; j++) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  var latestdate = new Date(date);
 
   return (
-    <Link to={`/Openmanga/${id}`}>
+    <Link to={`/Openmanga/${id}`} style={{ textDecoration: 'none' }}>
       <Card sx={{ maxWidth: 345, }}>
         <CardHeader
           avatar={
@@ -69,13 +70,13 @@ for (let j = 0; j < 5; j++) {
           }
           title={title}
           // subheader="September 14, 2016"
-          subheader={`02/05/2023`}
+          subheader={`Chapter Update: ${latestdate.toISOString().substring(0, 10)}`}
         />
         <CardMedia
           component="img"
           height="250"
           // image="./sololeveling.jpg"
-          src={`http://127.0.0.1:8000/media/${image}`}
+          src={`https://mangaworld.herokuapp.com/media/${image}`}
           alt="Manga"
         />
           <div style={{display:'flex', flexDirection:'row', justifyContent:'center', fontSize:'25px', }}>
