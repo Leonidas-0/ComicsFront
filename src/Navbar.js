@@ -92,7 +92,7 @@ export default function Altnavbar() {
                 <ClickAwayListener onClickAway={() => setSearch(false)}>
                     <div>
                         <div className="nav right">
-                            <div style={{ marginRight: '20px', marginLeft: '10px' }}>
+                            <div style={{ marginRight: '20px', marginLeft: '10px', cursor: 'pointer' }}>
                                 <a onClick={() => setSearch(!search)}><SearchIcon /></a>
                             </div>
                             <NavLink
