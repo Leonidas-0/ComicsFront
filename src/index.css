@@ -107,7 +107,7 @@ code {
   background-image:         linear-gradient(
     rgba(0, 0, 0, -0.4), 
     rgba(0, 0, 0, -0.4)
-  ), url('./sololeveling.jpg');
+  ), url('../public/sololeveling.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   filter: blur(3px);
