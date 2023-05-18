@@ -38,7 +38,7 @@ export default function Openmanga() {
     }
     async function fetchAPI() {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/manga/${mangaid}`)
+            const response = await fetch(`https://mangaworld.herokuapp.com/manga/${mangaid}`)
             if (response.ok) {
                 let result = await response.json();
                 setData(result);
@@ -79,7 +79,7 @@ export default function Openmanga() {
     return (
         <div id="chapterview">
             <br></br>
-            <img src={`http://127.0.0.1:8000/media/${data.cover}`}></img>
+            <img src={`https://mangaworld.herokuapp.com/media/${data.cover}`}></img>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '40px', }}>
                 {rating} 
             </div>

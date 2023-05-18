@@ -68,7 +68,7 @@ export default function Altnavbar() {
             setData("")
         }
         else {
-        fetch(`http://127.0.0.1:8000/searchresponse/${query}`).then(response => response.json()).then((result) => {
+        fetch(`https://mangaworld.herokuapp.com/searchresponse/${query}`).then(response => response.json()).then((result) => {
             // setData(JSON.stringify(result)) 
             setData(result)
         })
