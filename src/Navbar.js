@@ -19,7 +19,7 @@ import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { SwipeableDrawer } from '@mui/material';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ClickAwayListener } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
@@ -62,12 +62,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 export default function Altnavbar() {
+    const [skipCount, setSkipCount] = useState(true);
+    const navigate = useNavigate();
     const [data, setData] = useState("");
     const [search, setSearch] = useState(false);
     const [searchresult, setSearchresult] = useState("");
-    if (searchresult != "" && searchresult != null) {
-        window.location.href = `/Openmanga/${searchresult.id}`
+    const [name, setName] = useState('');
+    // const [searchvalue, setSearchvalue] = useState(null)
+    // function opensearch () {
+    // if (search) {
+    //     useEffect(() => {
+    //     if (searchresult !== "") {
+    //     // setTimeout(function(){
+    //         document.querySelector(".MuiAutocomplete-popper").onclick = function() { 
+    //             // setTimeout(function(){
+    //                 setSearch(false);
+    //                 setSearchresult(document.querySelector(".MuiInputBase-root > input").value)
+    //                 navigate(`/Openmanga/${searchresult.id}`)
+    //             // }, 1000);
+    //             // if (searchresult != "" && searchresult != null) {
+    //             // }
+    //         }
+    //     // }, 100);
+    // }
+    // }, [search]);
+    // }
+    function Handleclick(value) {
+        setSearchresult("")
+        setSearch(false)
+        setSearchresult(value)
+        navigate(`/Openmanga/${value.id}`)
+        setName("")
     }
+
     function Handlesearch(query) {
         if (query == "") {
             setData("")
@@ -89,45 +116,47 @@ export default function Altnavbar() {
                         <span className="fas fa-bars">
                         </span></button>
                 </div>
-                <ClickAwayListener onClickAway={() => setSearch(false)}>
+                <ClickAwayListener onClickAway={() => {setSearch(false)}}>
                     <div>
                         <div className="nav right">
                             <div style={{ marginRight: '20px', marginLeft: '10px', cursor: 'pointer' }}>
                                 <a onClick={() => setSearch(!search)}><SearchIcon /></a>
                             </div>
                             <NavLink
-                            onClick={() => setSearch(false)}
+                            onClick={() =>{setSearch(false)}}
                                 className={"nav-link"}
                                 to="/"
                                 activeClassName="nav-link active"
                             ><span className="nav-link-span"><span className="u-nav">Home</span></span></NavLink>
                             <NavLink
-                            onClick={() => setSearch(false)}
+                            onClick={() => {setSearch(false)}}
                                 className={"nav-link"}
                                 to="/Genres"
                                 activeClassName="nav-link active"
                             ><span className="nav-link-span"><span className="u-nav">Genres</span></span></NavLink>
                             <NavLink
-                            onClick={() => setSearch(false)}
+                            onClick={() => {setSearch(false)} }
                                 className={"nav-link"}
                                 to="/Openmanga"
                                 activeClassName="nav-link active"
-                            ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
+                            ><span className="nav-link-span"><span className="u-nav">Manga</span></span></NavLink>
                             {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
                         </div>
                         <div id="autocomplete" style={{ display: search ? 'block' : 'none', }}>
                             <Autocomplete 
-                            onChange={(event, result) => {setSearchresult(result);
-      }}                                // style={{  height: '0 !important', animation: 'open !important', animationDuration: '0.1s !important', animationFillMode:'forwards', animationPlayState:search ? 'running !important':'paused !important'}}
+                            // onChange={(result) => }      
+                          // style={{  height: '0 !important', animation: 'open !important', animationDuration: '0.1s !important', animationFillMode:'forwards', animationPlayState:search ? 'running !important':'paused !important'}}
                                 zIndex={11}
                                 defaultValue={""}
+                                value={name}
                                 open={search}
-                                onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                                onKeyUp={(e, result) => { Handlesearch(e.target.value) }}
                                 // disablePortal
                                 id="combo-box-demo"
                                 options={!data ? [{ label: "", id: 0 }] : data}
                                 sx={{ width: 300, marginLeft: '20px' }}
-                                renderInput={(params) => <TextField {...params} onClick={(e) => { console.log((e.target.value)) }} />}
+                                renderInput={(params) => <TextField {...params} />}
+                                onChange={(e, value)=>{if (e.target.value!=="") {Handleclick(value)}}}
                             />
                         </div>
                     </div>
@@ -136,7 +165,7 @@ export default function Altnavbar() {
         </header>
     )
 }
-export function PrimarySearchAppBar() {
+ function PrimarySearchAppBar() {
     // const filteredList = list.filter((element) => {
     //     if (searchstring === '') {
     //         return element;
@@ -280,7 +309,7 @@ export function PrimarySearchAppBar() {
                     <Autocomplete
                         defaultValue={""}
                         open={search}
-                        onKeyUp={(e) => { Handlesearch(e.target.value) }}
+                        // onKeyUp={(e) => { Handlesearch(e.target.value) }}
                         // disablePortal
                         id="combo-box-demo"
                         options={!data ? [{ label: "Loading...", id: 0 }] : data}

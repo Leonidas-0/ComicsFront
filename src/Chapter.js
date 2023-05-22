@@ -1,21 +1,26 @@
 import Altnavbar from "./Navbar";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
-export default function Chapter() {
+export default function Chapter(props) {
+    const navigate = useNavigate();
     const [data, setData] = useState("");
     const [images, setImages] = useState("");
     const { mangaid, chapterid } = useParams();
+    if (props.location !== undefined) {
+        console.log(1)
+        mangaid=props.location.state.manga;
+        chapterid=props.location.state.chapter;
+    }
     const [maxlength, setMaxLength] = useState("")
     // const [ changechapter, setChangechapter ] = useState(false);
     // const [ chapter, setChapter ] = useState("");
-    console.log(maxlength)
     
 
     async function fetchAPI() {
@@ -78,13 +83,18 @@ export default function Chapter() {
     //     }
     // }
 // }, [chapter]);
-    function changechapter(chapter) {
-        if (chapter > maxlength || chapter < 1) {
-            window.location.href = `/Openmanga/${mangaid}`
+    function Changechapter(chapter) {
+        const {state} = useLocation();
+        const { manga, nextchapter } = state;
+        if (chapter > parseInt(maxlength) || chapter < 1) {
+            setTimeout(function(){  
+            navigate(`/Openmanga/${mangaid}`)
+        }, 100);
         }
         else {
         setTimeout(function(){
-            window.location.reload()
+            // navigate(`/${mangaid}/${chapter}`)
+            navigate(`/${manga}/${nextchapter}`, { state: { manga: mangaid, nextchapter: chapter+1 } });
         }, 100);
     }
     }
@@ -95,21 +105,21 @@ export default function Chapter() {
             <Pagination count={maxlength} siblingCount={1} boundaryCount={1} />
             </Link> */}
                 <div style={{ display: 'flex', flexDirection: 'row', gap: "5px" }}>
-                    <Link to={`/${mangaid}/${parseInt(chapterid) - 1}`} onClick={() => changechapter(parseInt(chapterid) - 1)}>
-                        <ArrowBackIosIcon sx={{ fontSize: '40px !important' }} />
-                    </Link>
-                    <Link to={`/${mangaid}/${parseInt(chapterid) + 1}`} onClick={() => changechapter(parseInt(chapterid) + 1)}>
-                        < ArrowForwardIosIcon sx={{ fontSize: '40px !important' }} />
-                    </Link>
+                <Link onClick={() => Changechapter(parseInt(chapterid) - 1)}>
+                <ArrowBackIosIcon sx={{ fontSize: '40px !important' }} />
+            </Link>
+            <Link onClick={() => Changechapter(parseInt(chapterid) + 1)}>
+                <ArrowForwardIosIcon sx={{ fontSize: '40px !important' }} />
+            </Link>
                 </div>
             </Stack>
             <br></br>
             {images}
             <br></br>
-            <Link to={`/${mangaid}/${parseInt(chapterid) - 1}`} onClick={() => changechapter(parseInt(chapterid) - 1)}>
+            <Link onClick={() => Changechapter(parseInt(chapterid) - 1)}>
                 <ArrowBackIosIcon sx={{ fontSize: '40px !important' }} />
             </Link>
-            <Link to={`/${mangaid}/${parseInt(chapterid) + 1}`} onClick={() => changechapter(parseInt(chapterid) + 1)}>
+            <Link onClick={() => Changechapter(parseInt(chapterid) + 1)}>
                 <ArrowForwardIosIcon sx={{ fontSize: '40px !important' }} />
             </Link>
             <br></br>
