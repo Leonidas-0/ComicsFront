@@ -8,6 +8,7 @@ import Categories from "./Categories";
 import Chapter from "./Chapter";
 import Genremanga from "./Genremanga";
 import Footer from "./Footer"; 
+import About from "./About";
 export default function App() {
   // const { pathname } = useLocation();
 
@@ -22,7 +23,8 @@ export default function App() {
         <Route path="/Openmanga/:mangaid" element={<Openmanga />} />
         <Route path="/Genres" element={<Categories />} />
         <Route path="/:mangaid/:chapterid" element={<Chapter />} />
-        <Route path="/:genreid" element={<Genremanga />} />
+        <Route path="genre/:genreid" element={<Genremanga />} />
+        <Route path="/About" element={<About />} />
       </Routes>
       <Footer />
     </div>

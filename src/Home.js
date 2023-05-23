@@ -11,7 +11,9 @@ import './index.css'
 import { Divider } from '@mui/material';
 import Manga from './Manga';
 import Altnavbar from './Navbar';
-import './nav.scss'
+import './nav.scss';
+import { Link } from 'react-router-dom';
+
 function App() {
   const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
@@ -30,14 +32,14 @@ function App() {
         let result = await response.json();
         setData(result);
         setImage(data.map(item => {
-          return <img src={`https://mangaworld.herokuapp.com/media/${item.cover}`}></img>;
+          return <Link to={`/Openmanga/${item.id}`}><img src={`https://mangaworld.herokuapp.com/media/${item.cover}`}></img></Link>;
         }))
         data.slice(0,3).map(item => {
           let allratings=(item.ratings)
           setMangas(
           prevState => [...prevState,
           <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
-            <Manga allratings={allratings}  date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
+            <Manga allratings={allratings} genres={item.genres}  date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
           </div>]
           )
         }

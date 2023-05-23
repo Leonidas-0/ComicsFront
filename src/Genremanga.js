@@ -20,6 +20,7 @@ export default function Genremanga() {
         if (response.ok) {
           let result = await response.json();
           setData(result);
+          console.log(result)
           setImage(data.map(item => {
             return <img src={`https://mangaworld.herokuapp.com/media/${item.cover}`}></img>;
           }))
@@ -29,7 +30,7 @@ export default function Genremanga() {
             setMangas(
             prevState => [...prevState,
             <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
-              <Manga allratings={allratings} date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
+              <Manga allratings={allratings} genres={item.genres} date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
             </div>]
             )
           }

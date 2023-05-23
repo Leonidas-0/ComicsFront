@@ -17,7 +17,7 @@ export default function Categories() {
                     setGenres(
                     prevState => [...prevState,
                     <div style={{ display: 'flex', justifyContent: 'center', textDecoration:'none !important' }}>
-                     <Link to={`/${item}`}>
+                     <Link to={`/genre/${item}`}>
                       {item}
                       </Link>
                     </div>]

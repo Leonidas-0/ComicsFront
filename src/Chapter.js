@@ -9,19 +9,25 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 export default function Chapter(props) {
+    const [changed, setChanged] = useState(false);
     const navigate = useNavigate();
     const [data, setData] = useState("");
     const [images, setImages] = useState("");
     const { mangaid, chapterid } = useParams();
-    if (props.location !== undefined) {
-        console.log(1)
-        mangaid=props.location.state.manga;
-        chapterid=props.location.state.chapter;
-    }
+    console.log(changed)
+    // if (props.location !== undefined) {
+    //     console.log(1)
+    //     mangaid=props.location.state.manga;
+    //     chapterid=props.location.state.chapter;
+    // }
     const [maxlength, setMaxLength] = useState("")
     // const [ changechapter, setChangechapter ] = useState(false);
     // const [ chapter, setChapter ] = useState("");
-    
+    if (changed) {
+        setTimeout(function(){  
+        window.location.reload()
+    }, 200);
+    }
 
     async function fetchAPI() {
         try {
@@ -84,17 +90,18 @@ export default function Chapter(props) {
     // }
 // }, [chapter]);
     function Changechapter(chapter) {
-        const {state} = useLocation();
-        const { manga, nextchapter } = state;
+        // const {state} = useLocation();
+        // const { manga, nextchapter } = state;
         if (chapter > parseInt(maxlength) || chapter < 1) {
             setTimeout(function(){  
             navigate(`/Openmanga/${mangaid}`)
         }, 100);
         }
         else {
+        setChanged(true)
         setTimeout(function(){
             // navigate(`/${mangaid}/${chapter}`)
-            navigate(`/${manga}/${nextchapter}`, { state: { manga: mangaid, nextchapter: chapter+1 } });
+            navigate(`/${mangaid}/${chapter}`);
         }, 100);
     }
     }

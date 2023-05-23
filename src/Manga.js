@@ -15,6 +15,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -27,9 +28,18 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Manga({ image, title, id, average, 
-  allratings, date
+  allratings, date, genres
 }) {
+  console.log(genres)
   let rating=[]
+  let allgenres=[];
+  for (let j = 0; j < genres.length; j++) {
+    if (j === genres.length-1)
+    allgenres.push(<span>{genres[j]}</span>)
+    else {
+      allgenres.push(<span>{genres[j]},&nbsp;</span>)
+    }
+  }
   if (allratings.length !== 0) {
     average = Math.round(allratings.reduce((a, b) => a + b, 0) / allratings.length)
 }
@@ -59,7 +69,6 @@ for (let j = 0; j < 5; j++) {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-
             </Avatar>
           }
           action={
@@ -67,6 +76,7 @@ for (let j = 0; j < 5; j++) {
               <MoreVertIcon />
             </IconButton>
           }
+          titleTypographyProps={{variant:'h8' }}
           title={title}
           // subheader="September 14, 2016"
           subheader={`Chapter Update: ${latestdate.toISOString().substring(0, 10)}`}
@@ -78,9 +88,10 @@ for (let j = 0; j < 5; j++) {
           src={`https://mangaworld.herokuapp.com/media/${image}`}
           alt="Manga"
         />
-          <div style={{display:'flex', flexDirection:'row', justifyContent:'center', fontSize:'25px', }}>
+          <div style={{display:'flex', flexDirection:'row', justifyContent:'center', fontSize:'25px' }}>
             {rating}
           </div>
+          <h8>{allgenres}</h8>
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             This impressive paella is a perfect party dish and a fun meal to cook

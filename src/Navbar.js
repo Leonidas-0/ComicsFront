@@ -137,9 +137,9 @@ export default function Altnavbar() {
                             <NavLink
                             onClick={() => {setSearch(false)} }
                                 className={"nav-link"}
-                                to="/Openmanga"
+                                to="/About"
                                 activeClassName="nav-link active"
-                            ><span className="nav-link-span"><span className="u-nav">Manga</span></span></NavLink>
+                            ><span className="nav-link-span"><span className="u-nav">About</span></span></NavLink>
                             {/* <a href="#contact" className="nav-link"><span className="nav-link-span"><span className="u-nav">Contact</span></span></a> */}
                         </div>
                         <div id="autocomplete" style={{ display: search ? 'block' : 'none', }}>

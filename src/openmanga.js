@@ -8,13 +8,15 @@ export default function Openmanga() {
     const [chapters, setChapters] = useState([null]);
     const [data, setData] = useState("");
     const [rating, setRating] = useState([]);
+    const [genres, setGenres] = useState([]);
+    console.log(genres[0])
     // const [allratings, setAllratings] = useState([]);
     // console.log(allratings)
 
     function Rating(allratings) {
         // console.log(allratings)
         setRating("")
-        let average=""
+        let average = ""
         if (allratings.length !== 0) {
             average = Math.round(allratings.reduce((a, b) => a + b, 0) / allratings.length)
         }
@@ -25,15 +27,15 @@ export default function Openmanga() {
             if (j >= average) {
                 setRating(
                     prevState => [...prevState,
-                    <div onClick={() => Rate(j+1)}>☆</div>]
+                    <div onClick={() => Rate(j + 1)}>☆</div>]
                 )
             }
             else {
                 setRating(
                     prevState => [...prevState,
-                <div onClick={() => Rate(j+1)}>★</div>]
+                    <div onClick={() => Rate(j + 1)}>★</div>]
                 )
-            }                   
+            }
         }
     }
     async function fetchAPI() {
@@ -43,6 +45,19 @@ export default function Openmanga() {
                 let result = await response.json();
                 setData(result);
                 Rating(data.ratings)
+                for (let j = 0; j < data.genres.length; j++) {
+                    if (j === data.genres.length - 1)
+                        setGenres(
+                            prevState => [...prevState,
+                                <span>{data.genres[j]}</span>]
+                        )
+                    else {
+                        setGenres(
+                            prevState => [...prevState,
+                                <span>{data.genres[j]},&nbsp;</span>]
+                        )
+                    }
+                }
                 for (let i = 0; i < data.chapters.length; i++) {
                     setChapters(
                         prevState => [...prevState,
@@ -50,7 +65,7 @@ export default function Openmanga() {
                             chapter: {data.chapters[i]}
                         </Link>]
                     )
-                }    
+                }
             }
             else { return console.log('falied') }
         } catch (error) {
@@ -66,7 +81,7 @@ export default function Openmanga() {
     async function Rate(num) {
         setRating("")
         try {
-            const response = await fetch(`http://127.0.0.1:8000/rate/${mangaid}/${num}`)
+            const response = await fetch(`https://mangaworld.herokuapp.com/rate/${mangaid}/${num}`)
             if (response.ok) {
                 let result = await response.json();
                 Rating(result[0])
@@ -80,12 +95,16 @@ export default function Openmanga() {
         <div id="chapterview">
             <br></br>
             <img src={`https://mangaworld.herokuapp.com/media/${data.cover}`}></img>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '40px', }}>
-                {rating} 
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '40px', cursor: 'pointer' }}>
+                {rating}
+            </div>
+            <div style={{textWrap:'wrap'}}>
+            {genres}
             </div>
             <br></br>
-            <a style={{ display: 'flex', flexDirection: 'column', gap:'10px' }}>
-            {chapters}
+            <br></br>
+            <a style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {chapters}
             </a>
             <br></br>
             <br></br>
