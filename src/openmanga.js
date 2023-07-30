@@ -9,7 +9,6 @@ export default function Openmanga() {
     const [data, setData] = useState("");
     const [rating, setRating] = useState([]);
     const [genres, setGenres] = useState([]);
-    console.log(genres[0])
     // const [allratings, setAllratings] = useState([]);
     // console.log(allratings)
 

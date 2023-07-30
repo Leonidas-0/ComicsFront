@@ -174,7 +174,33 @@ a:hover {
   padding-left: 2em;
   padding-right: 2em;
 }
+.nav #{$a-tags-no-hov} {
+  &.active {
+    @include main-gradient;
+    color: #fff;
+  }
+}
 
+.nav-link-span {
+  @include unskew;
+  display: inline-block;
+}
+
+.nav-link {
+  @include skew;
+  color: #777;
+  text-decoration: none;
+
+  &:last-child {
+    padding-right: 3em;
+  }
+}
+
+a:hover.nav-link:not(.active) {
+  color: $color-neutral-dk;
+  background: $color-neutral-med;
+  background: linear-gradient(45deg, $color-neutral-lt, #ddd);
+}
 @media (min-width: 800px) {
   #nav-wrapper {
     // overflow: hidden;
@@ -205,34 +231,6 @@ a:hover {
 
   .btn-nav {
     display: none;
-  }
-
-  .nav #{$a-tags-no-hov} {
-    &.active {
-      @include main-gradient;
-      color: #fff;
-    }
-  }
-
-  .nav-link-span {
-    @include unskew;
-    display: inline-block;
-  }
-
-  .nav-link {
-    @include skew;
-    color: #777;
-    text-decoration: none;
-
-    &:last-child {
-      padding-right: 3em;
-    }
-  }
-
-  a:hover.nav-link:not(.active) {
-    color: $color-neutral-dk;
-    background: $color-neutral-med;
-    background: linear-gradient(45deg, $color-neutral-lt, #ddd);
   }
 }
 

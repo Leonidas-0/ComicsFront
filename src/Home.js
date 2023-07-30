@@ -18,6 +18,8 @@ function App() {
   const [mangas, setMangas] = useState([null])
   const [data, setData] = useState("");
   const [image, setImage] = useState("");
+  const [titles, setTitles] = useState("");
+
   // const [allratings, setAllratings] = useState([]);
   // const [average, setAverage] = useState([]);
   useEffect(() => {
@@ -42,6 +44,10 @@ function App() {
             <Manga allratings={allratings} genres={item.genres}  date={item.date[0]} image={item.cover}  title={item.label} id={item.id}/>
           </div>]
           )
+          setTitles(
+            prevState => [...prevState,
+            item.label]
+            )
         }
         )
       }
@@ -67,7 +73,7 @@ function App() {
                 {image[0]}
               </div>
               <Carousel.Caption>
-                <h3>First slide label</h3>
+                <h3>{titles[0]}</h3>
                 <p>Nulla vitae elit libero, a pharetra augue mollis.</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -81,7 +87,7 @@ function App() {
                 {image[1]}
               </div>
               <Carousel.Caption>
-                <h3>Second slide label</h3>
+              <h3>{titles[1]}</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur.</p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -90,7 +96,7 @@ function App() {
                 {image[2]}
               </div>
               <Carousel.Caption>
-                <h3>Third slide label</h3>
+              <h3>{titles[2]}</h3>
                 <p>
                   Praesent commodo cursus magna, vel.
                 </p>

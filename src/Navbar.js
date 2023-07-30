@@ -19,10 +19,8 @@ import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { SwipeableDrawer } from '@mui/material';
-import { NavLink, useNavigate } from "react-router-dom";
-import { ClickAwayListener } from '@mui/material';
-
-const Search = styled('div')(({ theme }) => ({
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { ClickAwayListener } from '@mui/material';const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -111,7 +109,7 @@ export default function Altnavbar() {
         <header id="nav-wrapper">
             <nav id="nav">
                 <div className="nav left">
-                    <span className="gradient skew"><h1 className="logo un-skew"><a href="#home"><img id="logo" src={"/logo.png"}></img></a></h1></span>
+                    <span className="gradient skew"><h1 className="logo un-skew"><Link to={'/'}><img id="logo" src={"/logo.png"}></img></Link></h1></span>
                     <button id="menu" class="btn-nav">
                         <span className="fas fa-bars">
                         </span></button>
